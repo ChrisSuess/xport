@@ -6,8 +6,8 @@ import random
 from flask import render_template, flash, redirect, url_for, send_from_directory
 from flask import current_app
 from werkzeug.utils import secure_filename
-from app import app
-from app.forms import LoginForm, SubmitGromacsForm, SubmitAmberForm
+from xport import app
+from xport.forms import LoginForm, SubmitGromacsForm, SubmitAmberForm
 
 
 @app.route('/')
@@ -39,8 +39,8 @@ def stop_job(job_id):
     for job in joblist:
         if job['job_id'] == job_id:
             if job['state'] == 'running':
-                pid = subprocess.check_output('tsp -p {}'.format(job['index']), shell=True)
-                result2 = subprocess.check_output('kill -9 {}'.format(pid), shell=True)
+                pid = subprocess.check_output('tsp -p {}'.format(job['index']), shell=True, universal_newlines=True)
+                result2 = subprocess.check_output('kill -9 {}'.format(pid), shell=True, universal_newlines=True)
     return redirect(url_for('jobs'))
             
 @app.route('/jobs/<path:job_id>')
@@ -64,7 +64,7 @@ def get_jobs():
     jobdirs = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '??????'))
     job_ids = [os.path.basename(j) for j in jobdirs]
     joblist = []
-    result = subprocess.check_output('tsp', shell=True)
+    result = subprocess.check_output('tsp', shell=True, universal_newlines=True)
     for line in result.split('\n')[1:]:
         words = line.split()
         if len(words) > 5:
@@ -144,7 +144,7 @@ def submit_amber():
 
         command = 'pmemd.cuda -i {} -c {} -p {}'.format(mdin_filename, inpcrd_filename, prmtop_filename)
         full_cmd = 'cd {} && tsp -L {} xflow-exec "{}"'.format(jobdir, job_id, command)
-        result = subprocess.check_output(full_cmd, shell=True)
+        result = subprocess.check_output(full_cmd, shell=True, universal_newlines=True)
         return render_template('success.html', result=result, job_id=job_id, filename=mdin_filename, title='Success')
     return render_template('submit_amber.html', form=form, title='Submit Amber Job')
 
@@ -162,13 +162,13 @@ def submit_gromacs():
         f.save(os.path.join(jobdir, filename))
         command = 'gmx mdrun -deffnm {}'.format(os.path.splitext(filename)[0])
         full_cmd = 'cd {} && tsp -L {} xflow-exec "{}"'.format(jobdir, job_id, command)
-        result = subprocess.check_output(full_cmd, shell=True)
+        result = subprocess.check_output(full_cmd, shell=True, universal_newlines=True)
         return render_template('success.html', result=result, job_id=job_id, filename=f.filename, title='Success')
     return render_template('submit_gromacs.html', form=form, title='Submit Gromacs Job')
 
 @app.route('/cluster')
 def cluster_info():
-    result = subprocess.check_output('xflow-stat', shell=True)
+    result = subprocess.check_output('xflow-stat', shell=True, universal_newlines=True)
     workerlist = []
     indx = 0
     for line in result.split('\n')[1:]:
@@ -181,7 +181,7 @@ def cluster_info():
             workerdict['ip_address'] = words[0]
             workerlist.append(workerdict)
             indx += 1
-    result2 = subprocess.check_output('xflow-execall "curl -s http://169.254.169.254/latest/meta-data/instance-type"', shell=True)
+    result2 = subprocess.check_output('xflow-execall "curl -s http://169.254.169.254/latest/meta-data/instance-type"', shell=True, universal_newlines=True)
     for line in result2.split('\n'):
         words = line.split()
         if len(words) == 2:

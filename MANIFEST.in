@@ -1,2 +1,3 @@
-graft app/templates
-graft extras/nginx
+graft xport/templates
+graft xport/webjobs
+graft xport/extras
