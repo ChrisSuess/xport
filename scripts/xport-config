@@ -35,3 +35,8 @@ flask_app = os.path.join(root, 'extras/supervisor/flask.conf')
 config_dir = '/etc/supervisor/conf.d'
 shutil.copy(flask_app, config_dir)
 result = subprocess.check_output('service supervisor stop; service supervisor start', shell=True, universal_newlines=True)
+
+UPLOAD_FOLDER = '/home/ubuntu/shared/webjobs'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
+    os.chmod(UPLOAD_FOLDER, 0o777)
