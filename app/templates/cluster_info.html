@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Cluster status</h1>
+    {% if workerlist %}
+        <table>
+          <tr>
+            <td>Worker ID</td>
+            <td>Worker instance type</td>
+            <td>Tasks executing</td>
+            <td>Tasks in memory</td>
+          </tr>
+          {% for worker in workerlist %}
+          <tr>
+            <td><center>{{ worker.index }}</center></td>
+            <td><center>{{ worker.instance_type }}</center></td>
+            <td><center>{{ worker.executing }}</center></td>
+            <td><center>{{ worker.in_memory }}</center></td>
+          </tr>
+          {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

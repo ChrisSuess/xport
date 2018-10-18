@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Files</h1>
+    {% if files %}
+        <table>
+          <tr>
+            <td>Name</td>
+            <td>Size</td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          {% for file in files %}
+          <tr>
+            <td>{{ file.name }}</td>
+            <td>{{ file.size }}</td>
+            <td><a href="{{ url_for('display_file', filename=file.path) }}">Show</a></td>
+            <td><a href="{{ url_for('download_file', filename=file.path) }}">Download</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

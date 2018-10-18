@@ -1,0 +1,37 @@
+nginx
+rm /etc/nginx/sites-enabled/default
+cat << %EOF% > /etc/nginx/sites-enabled/app
+server {
+ server_name *.compute.amazonaws.com;
+ listen 80 default_server;
+ location / {
+  rewrite ^/microblog/(.*) /$1 break;
+  proxy_pass http://127.0.0.1:5000;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP ip_address;
+ }
+}
+%EOF%
+sudo systemctl restart nginx
+
+supervisor
+cat << %EOF% > /etc/supervisor/conf.d/flask.conf
+[program:flask]
+user=ubuntu
+command=/usr/local/bin/flask run
+directory=/home/ubuntu/shared/microblog
+%EOF%
+service supervisor stop
+service supervisor start
+
+tsp
+
+python:
+flask
+flask-wtf
+python-dotenv
+dask
+distributed
+
+app:
+microblog

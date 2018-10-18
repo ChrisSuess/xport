@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Jobs</h1>
+    {% if joblist %}
+        <table>
+          <tr>
+            <td>Job ID</td>
+            <td>Status</td>
+            <td></td>
+            <td></td>
+          </tr>
+          {% for job in joblist %}
+          <tr>
+            <td><a href="{{ url_for('jobfiles', job_id=job.job_id) }}">{{ job.job_id }}</a></td>
+            <td>{{ job.state }}</td>
+            <td><a href="{{ url_for('stop_job', job_id=job.job_id) }}">Stop</a></td>
+            <td><a href="{{ url_for('delete_job', job_id=job.job_id) }}">Delete</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
