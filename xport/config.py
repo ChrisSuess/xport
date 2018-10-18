@@ -9,5 +9,6 @@ class Config(object):
         ROOT = os.path.dirname(os.path.abspath(root))
     except:
         raise OSError('Error: caannot determine root directory')
-    UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER') or os.path.join(ROOT, 'webjobs')
+    #UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER') or os.path.join(ROOT, 'webjobs')
+    UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER') or '/home/ubuntu/shared/webjobs')
     

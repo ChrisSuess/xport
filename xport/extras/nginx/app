@@ -1,5 +1,5 @@
 server {
- server_name example.com;
+ server_name *.compute.amazonaws.com;
  listen 80 default_server;
  location / {
   rewrite ^/xport/(.*) /$1 break;
