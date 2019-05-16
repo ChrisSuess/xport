@@ -1,21 +1,21 @@
 <html>
     <head>
       {% if title %}
-      <title>{{ title }} - Xbow Portal BETA</title>
-      <link rel="stylesheet" type="text/css" href='{{ url_for('static', filename='style.css') }}'>
+      <title>{{ title }} - Microblog</title>
       {% else %}
-      <title>Welcome to Xbow Portal BETA</title>
+      <title>Welcome to Microblog</title>
+      <link rel="stylesheet" href="static/main.css" />
       {% endif %}
     </head>
     <body>
-        <p>
-          Xbow Portal: 
+        <div>
+          Microblog: 
           <a href="{{ url_for('index') }}">Home</a>
           <a href="{{ url_for('cluster_info') }}">Cluster</a>
           <a href="{{ url_for('jobs') }}">Jobs</a>
           <a href="{{ url_for('submit_gromacs') }}">New Gromacs Job</a>
           <a href="{{ url_for('submit_amber') }}">New Amber Job</a>
-        </p>
+        </div>
         <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Submit Gromacs Job</h1>
+    <form method="POST" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            tprfile: {{ form.tprfile }}<br>
+            {% for error in form.tprfile.errors %}
+            <span style="color: red;">Error: {{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

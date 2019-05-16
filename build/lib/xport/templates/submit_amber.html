@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Submit Amber Job</h1>
+    <form method="POST" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            mdin: {{ form.mdinfile }}<br>
+            {% for error in form.mdinfile.errors %}
+            <span style="color: red;">Error: {{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            inpcrd: {{ form.inpcrdfile }}<br>
+            {% for error in form.inpcrdfile.errors %}
+            <span style="color: red;">Error: {{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            prmtop: {{ form.prmtopfile }}<br>
+            {% for error in form.prmtopfile.errors %}
+            <span style="color: red;">Error: {{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

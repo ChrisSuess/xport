@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Success</h1>
+    
+    <p>
+    {% if filename %}
+    File {{ filename }} uploaded<br>
+    {% endif %}
+    {% if job_id %}
+    Job ID: {{ job_id }}<br>
+    {% endif %}
+    {% if result %}
+    {{ result }}<br>
+    {% endif %}
+    </p>
+
+{% endblock %}

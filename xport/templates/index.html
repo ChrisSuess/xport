@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Welcome to Xbow</h1>
-    Through this web portal you can run Amber and Gromacs jobs on the cluster.
+    <h1>Welcome to Xbow:Portal</h1>
+    <img src="{{url_for('static', filename='xbow-logo.png')}}" width="300" />
+    <p>Run Amber and Gromacs simulations on your Xbow cluster.</p>
+    <script src="{{url_for('static', filename='scramble.js')}}"></script>
 {% endblock %}

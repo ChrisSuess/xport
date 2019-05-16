@@ -1,0 +1,128 @@
+h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+p, li, form, td, tr, table {
+  font-size: 16px;  
+  line-height: 2;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+html {
+  background-color: #212121;
+}
+
+h3 {
+  color: #fafafa;
+  text-shadow: 3px 3px 1px black;
+  text-align: center;
+  font-size: 30px;
+}
+
+p {
+  color: #fafafa;
+  text-shadow: 3px 3px 1px black;
+  text-align: center;
+  font-size: 20px;
+}
+
+/*body {
+  width: 600px;
+  margin: 0 auto;
+  background-color: #FF9500;
+  padding: 0 20px 20px 20px;
+  border: 5px solid black;
+}*/
+
+h1 {
+  margin: 0;
+  padding: 20px 0;  
+  color: #fafafa;
+  text-shadow: 6px 6px 2px black;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
+html, body {
+  font-family: 'Roboto Mono', monospace;
+  background: #212121; 
+  height: 100%;
+}
+.container {
+  /*height: 100%;
+  width: 100%;*/
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.text {
+  font-weight: 100;
+  font-size: 38px;
+  color: #fafafa;
+}
+.dud {
+  color: #757575;
+}
+
+body{
+  margin: 0;
+}
+#container{
+  width: 100%;
+  margin: auto;
+  min-height: 100vh;
+  
+}
+/*
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 1rem;
+  color: #555;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.left {
+  float: left;
+  width: 40%;
+}
+
+.right {
+  float: left;
+  width: 60%;
+  height: 20rem;
+  border: 2px dashed #999;
+  overflow: auto;
+}
+
+input[type=number] {
+  width: 3rem;
+}
+
+.poetry-content {
+  padding: 1rem;
+}*/
+

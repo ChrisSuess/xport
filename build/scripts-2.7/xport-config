@@ -1,0 +1,42 @@
+#!/usr/bin/python
+#
+# Install and configure everything required to run the 'xport' web portal.
+#
+# The tasks are:
+#
+#   1. Install required packages: nginx, supervisor, and task-spooler.
+#   2. Remove the configuration file 'default' from the sites_enabled
+#      directory of nginx.
+#   3. Add the configuration file 'app' to the sites_enabled directory.
+#   4. Start/restart nginx to update its configuration.
+#   5. Add the configuration file 'flask.conf' to the supervisor conf.d
+#      directory.
+#   6. Stop/restart supervisor to activate updates.
+#
+import os
+import shutil
+import subprocess
+
+from xport import app
+
+result = subprocess.check_output('apt-get update', shell=True, universal_newlines=True)
+result = subprocess.check_output('apt-get install -y nginx supervisor task-spooler', shell=True, universal_newlines=True)
+
+root = app.config['ROOT']
+nginx_app = os.path.join(root, 'extras/nginx/app')
+sites_enabled = '/etc/nginx/sites-enabled'
+nginx_default = os.path.join(sites_enabled, 'default')
+if os.path.exists(nginx_default):
+    os.remove(nginx_default)
+shutil.copy(nginx_app, sites_enabled)
+result = subprocess.check_output('/etc/init.d/nginx start', shell=True, universal_newlines=True)
+
+flask_app = os.path.join(root, 'extras/supervisor/flask.conf')
+config_dir = '/etc/supervisor/conf.d'
+shutil.copy(flask_app, config_dir)
+result = subprocess.check_output('service supervisor stop; service supervisor start', shell=True, universal_newlines=True)
+
+UPLOAD_FOLDER = '/home/ubuntu/shared/webjobs'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
+    os.chmod(UPLOAD_FOLDER, 0o777)
